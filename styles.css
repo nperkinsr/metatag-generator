@@ -76,6 +76,16 @@ textarea:focus {
   box-shadow: 0 0 5px #ff6600;
 }
 
+/* Default background color for unmodified fields */
+.unmodified {
+  background-color: #e8e8e8; /* Light gray */
+}
+
+/* Background color for modified fields */
+.modified {
+  background-color: #ffffff;
+}
+
 button {
   font-size: 1rem;
   width: 100%;
@@ -123,13 +133,14 @@ button:hover {
 }
 
 .google-favicon {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .favicon-placeholder {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  border-radius: 3rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -197,8 +208,10 @@ button:hover {
 }
 
 .social-url {
-  color: rgb(170, 170, 170);
-  font-size: 1rem;
+  color: rgb(187, 187, 187);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  line-height: 1.6;
 }
 
 .social-title {

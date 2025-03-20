@@ -1,114 +1,153 @@
 function generateMetaTags() {
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const keywords = document.getElementById("keywords").value;
-  const faviconInput = document.getElementById("favicon").value;
-  const ogTitle = document.getElementById("ogTitle").value;
-  const ogDescription = document.getElementById("ogDescription").value;
-  const ogImage = document.getElementById("ogImage").value;
-  const ogUrl = document.getElementById("ogUrl").value;
-  const ogType = document.getElementById("ogType").value;
-  const ogSiteName = document.getElementById("ogSiteName").value;
+  const fields = [
+    { id: "title", meta: `<meta name="title" content="` },
+    { id: "description", meta: `<meta name="description" content="` },
+    { id: "keywords", meta: `<meta name="keywords" content="` },
+    { id: "favicon", meta: `<link rel="icon" href="` },
+    { id: "ogTitle", meta: `<meta property="og:title" content="` },
+    { id: "ogDescription", meta: `<meta property="og:description" content="` },
+    { id: "ogImage", meta: `<meta property="og:image" content="` },
+    { id: "ogUrl", meta: `<meta property="og:url" content="` },
+    { id: "ogType", meta: `<meta property="og:type" content="` },
+    { id: "ogSiteName", meta: `<meta property="og:site_name" content="` },
+  ];
 
-  let domainName = ogUrl.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0];
+  let metaTags = "";
 
-  document.getElementById("googlePreviewTitle").textContent = title;
-  document.getElementById("googlePreviewDescription").textContent = description;
-  document.querySelector(".site-name").textContent = ogSiteName;
-  document.querySelector(".site-url").textContent = domainName;
-
-  const faviconPlaceholder = document.querySelector(".favicon-placeholder");
-  if (faviconPlaceholder) {
-    faviconPlaceholder.style.backgroundImage = faviconInput
-      ? `url(${faviconInput})`
-      : "url(https://bit.ly/4kEFLWa)";
-  }
-
-  const ogImagePlaceholder = document.querySelector(".ogImage-placeholder");
-  if (ogImagePlaceholder) {
-    ogImagePlaceholder.style.backgroundImage = ogImage
-      ? `url(${ogImage})`
-      : "url(https://images.pexels.com/photos/3892468/pexels-photo-3892468.jpeg)";
-  }
-
-  document.getElementById("socialPreviewTitle").textContent = ogTitle;
-  document.getElementById("socialPreviewDescription").textContent =
-    ogDescription;
-  document.getElementById("socialPreviewImage").src =
-    ogImage ||
-    "https://images.pexels.com/photos/3892468/pexels-photo-3892468.jpeg";
-  document.getElementById("ogUrlPreview").textContent = domainName;
-
-  const metaTags = `
-<meta name="title" content="${title}">
-<meta name="description" content="${description}">
-<meta name="keywords" content="${keywords}">
-<link rel="icon" href="${faviconInput || "https://example.com/favicon.ico"}">
-<meta property="og:title" content="${ogTitle}">
-<meta property="og:description" content="${ogDescription}">
-<meta property="og:image" content="${
-    ogImage ||
-    "https://images.pexels.com/photos/3892468/pexels-photo-3892468.jpeg"
-  }">
-<meta property="og:url" content="${ogUrl}">
-<meta property="og:type" content="${ogType}">
-<meta property="og:site_name" content="${ogSiteName}">
-`.trim();
+  fields.forEach(({ id, meta }) => {
+    const input = document.getElementById(id);
+    if (
+      input &&
+      input.value.trim() !== "" &&
+      input.value !== input.placeholder
+    ) {
+      // Only generate meta tags for fields that are filled in by the user
+      metaTags += `${meta}${input.value}">\n`;
+    }
+  });
 
   const metaTagsContainer = document.getElementById("metaTags");
   if (metaTagsContainer) {
-    metaTagsContainer.textContent = metaTags;
+    metaTagsContainer.textContent = metaTags.trim(); // Display only the generated meta tags
+  }
+
+  updatePreviews();
+}
+
+function updatePreviews() {
+  const fields = [
+    { id: "title", previewId: "googlePreviewTitle" },
+    { id: "description", previewId: "googlePreviewDescription" },
+    { id: "ogTitle", previewId: "socialPreviewTitle" },
+    { id: "ogDescription", previewId: "socialPreviewDescription" },
+    { id: "ogSiteName", previewId: "socialPreviewSiteName" },
+  ];
+
+  fields.forEach(({ id, previewId }) => {
+    const input = document.getElementById(id);
+    const previewElement = document.getElementById(previewId);
+    if (input && previewElement) {
+      // Use the input value if filled, otherwise use the placeholder
+      previewElement.textContent =
+        input.value.trim() !== "" ? input.value : input.placeholder;
+    }
+  });
+
+  // Update favicon preview
+  const faviconInput = document.getElementById("favicon");
+  const faviconPlaceholder = document.querySelector(".favicon-placeholder");
+  if (faviconPlaceholder) {
+    faviconPlaceholder.style.backgroundImage = `url(${
+      faviconInput.value.trim() !== "" ? faviconInput.value : "assets/donut.png"
+    })`;
+  }
+
+  // Update OG image preview
+  const ogImageInput = document.getElementById("ogImage");
+  const ogImagePlaceholder = document.querySelector("#socialPreviewImage");
+  if (ogImagePlaceholder) {
+    ogImagePlaceholder.src =
+      ogImageInput.value.trim() !== ""
+        ? ogImageInput.value
+        : "assets/muffin.jpg";
+  }
+
+  // Update OG URL preview
+  const ogUrlInput = document.getElementById("ogUrl");
+  const ogUrlPreview = document.getElementById("ogUrlPreview");
+  if (ogUrlPreview) {
+    ogUrlPreview.textContent =
+      ogUrlInput.value.trim() !== ""
+        ? ogUrlInput.value
+        : ogUrlInput.placeholder;
+  }
+
+  // Update site name and site URL in Google preview
+  const ogSiteNameInput = document.getElementById("ogSiteName");
+  const siteNameElement = document.querySelector(".site-name");
+  if (siteNameElement) {
+    siteNameElement.textContent =
+      ogSiteNameInput.value.trim() !== ""
+        ? ogSiteNameInput.value
+        : ogSiteNameInput.placeholder;
+  }
+
+  const siteUrlElement = document.querySelector(".site-url");
+  if (siteUrlElement) {
+    siteUrlElement.textContent =
+      ogUrlInput.value.trim() !== ""
+        ? ogUrlInput.value
+        : ogUrlInput.placeholder;
   }
 }
 
 function handlePlaceholder(input) {
   input.addEventListener("focus", function () {
-    if (this.value === this.defaultValue) {
+    if (this.value === this.placeholder) {
       this.value = "";
     }
   });
 
   input.addEventListener("blur", function () {
     if (this.value.trim() === "") {
-      this.value = this.defaultValue;
+      this.value = this.placeholder;
+    }
+    updatePreviews(); // Update previews when the user leaves the field
+  });
+}
+
+function updateFieldBackgrounds() {
+  const inputs = document.querySelectorAll("input");
+
+  inputs.forEach((input) => {
+    input.addEventListener("input", function () {
+      // Check if the field has custom content
+      if (this.value.trim() === "" || this.value === this.placeholder) {
+        this.classList.remove("modified");
+        this.classList.add("unmodified");
+      } else {
+        this.classList.remove("unmodified");
+        this.classList.add("modified");
+      }
+    });
+
+    // Initialize the background color on load
+    if (input.value.trim() === "" || input.value === input.placeholder) {
+      input.classList.add("unmodified");
+    } else {
+      input.classList.add("modified");
     }
   });
 }
 
+// Call the function on page load
 window.onload = function () {
-  const defaultValues = {
-    title: "The Flour Pot - Freshly Baked Goodness",
-    description:
-      "Discover our delicious range of artisan breads, pastries, and cakes. Baked fresh daily at The Flour Pot.",
-    keywords: "bakery, artisan bread, pastries, cakes, fresh bread",
-    favicon: "https://bit.ly/4kEFLWa",
-    ogTitle: "The Flour Pot - Freshly Baked Goodness",
-    ogDescription:
-      "Enjoy the finest artisan breads and pastries, freshly baked every day. Visit The Flour Pot today!",
-    ogImage: "https://bit.ly/4iDc4my",
-    ogUrl: "https://www.theflourpot.com",
-    ogType: "website",
-    ogSiteName: "The Flour Pot",
-  };
-
-  Object.keys(defaultValues).forEach((id) => {
-    const input = document.getElementById(id);
-    if (input) {
-      input.value = defaultValues[id];
-      input.defaultValue = defaultValues[id];
-      handlePlaceholder(input);
-    }
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach((input) => {
+    input.value = ""; // Clear all input fields on load
+    handlePlaceholder(input);
   });
 
-  const faviconPlaceholder = document.querySelector(".favicon-placeholder");
-  if (faviconPlaceholder) {
-    faviconPlaceholder.style.backgroundImage = `url(${defaultValues.favicon})`;
-  }
-
-  const ogImagePlaceholder = document.querySelector(".ogImage-placeholder");
-  if (ogImagePlaceholder) {
-    ogImagePlaceholder.style.backgroundImage = `url(${defaultValues.ogImage})`;
-  }
-
-  generateMetaTags();
+  updateFieldBackgrounds();
+  updatePreviews(); // Initialize previews with placeholders
 };

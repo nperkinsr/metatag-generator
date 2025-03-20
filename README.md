@@ -4,4 +4,4 @@ Input values in the form and retrieve them as meta tags
 
 https://nperkinsr.github.io/metatag-generator/
 
-![Screenshot 2025-03-20 at 16 26 59](https://github.com/user-attachments/assets/7626121d-dbb1-4c27-8b32-39e993541a36)
+![Screenshot 2025-03-20 at 21 54 37](https://github.com/user-attachments/assets/c018d2c6-c52a-4add-bae4-4ea7a750a38e)

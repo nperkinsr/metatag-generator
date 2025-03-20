@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta Tag Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Meta Tag Generator</h1>
+    <form id="metaForm">
+      <!-- SEO Meta Tags -->
+      <div class="form-row">
+        <label for="title">Title (SEO)</label>
+        <input type="text" id="title" placeholder="The Flour Pot - Freshly Baked Goodness">
+
+        <label for="description">Description (SEO)</label>
+        <input type="text" id="description"
+          placeholder="Discover our delicious range of artisan breads, pastries, and cakes. Baked fresh daily at The Flour Pot.">
+      </div>
+
+      <div class="form-row">
+        <label for="keywords">Keywords (SEO)</label>
+        <input type="text" id="keywords" placeholder="bakery, artisan bread, pastries, cakes, fresh bread">
+
+        <label for="favicon">Favicon (ICO File URL)</label>
+        <input type="text" id="favicon" placeholder="https://example.com/favicon.ico">
+      </div>
+
+      <!-- Open Graph Meta Tags -->
+      <div class="form-row">
+        <label for="ogTitle">OG Title</label>
+        <input type="text" id="ogTitle" placeholder="The Flour Pot - Freshly Baked Goodness">
+
+        <label for="ogDescription">OG Description</label>
+        <input type="text" id="ogDescription"
+          placeholder="Enjoy the finest artisan breads and pastries, freshly baked every day. Visit The Flour Pot!">
+
+        <label for="ogImage">OG Image URL</label>
+        <input type="text" id="ogImage" placeholder="https://example.com/bakery-og-image.jpg">
+      </div>
+
+      <div class="form-row">
+        <label for="ogUrl">OG URL</label>
+        <input type="text" id="ogUrl" placeholder="https://www.theflourpot.com">
+
+        <label for="ogType">OG Type</label>
+        <input type="text" id="ogType" placeholder="website">
+
+        <label for="ogSiteName">OG Site Name</label>
+        <input type="text" id="ogSiteName" placeholder="The Flour Pot">
+      </div>
+
+      <button type="button" onclick="generateMetaTags()">Generate</button>
+    </form>
+
+    <div class="preview-container">
+      <div class="preview">
+
+        <!-- Google Search Preview -->
+        <h2>GOOGLE PREVIEW</h2>
+        <div class="google-preview">
+          <div class="google-content">
+            <div class="google-favicon">
+              <div class="favicon-placeholder"></div>
+            </div>
+            <div class="google-info">
+              <p class="site-name">Example Site</p>
+              <p class="site-url">www.example.com</p>
+            </div>
+          </div>
+          <p class="google-title" id="googlePreviewTitle"></p>
+          <p class="google-description" id="googlePreviewDescription"></p>
+        </div>
+
+        <!-- Social Media Preview -->
+        <h2>RICH LINK PREVIEW</h2>
+        <div class="social-media-preview">
+          <div class="social-content">
+            <div class="social-image">
+              <img id="socialPreviewImage" src="" alt="Preview Image">
+            </div>
+            <div class="social-info">
+              <p class="social-url" id="ogUrlPreview"></p>
+              <p class="social-title" id="socialPreviewTitle"></p>
+              <p class="social-description" id="socialPreviewDescription"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="metaTags">
+      <h2>Generated Meta Tags:</h2>
+      <pre id="metaTags"></pre>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>

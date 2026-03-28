@@ -28,7 +28,7 @@ function generateMetaTags() {
 
   const metaTagsContainer = document.getElementById("metaTags");
   if (metaTagsContainer) {
-    metaTagsContainer.textContent = metaTags.trim(); // Display only the generated meta tags
+    metaTagsContainer.textContent = metaTags.trim() || "<!-- Your generated meta tags will appear here -->";
   }
 
   updatePreviews();
@@ -129,6 +129,8 @@ function updateFieldBackgrounds() {
         this.classList.remove("unmodified");
         this.classList.add("modified");
       }
+
+      updatePreviews();
     });
 
     // Initialize the background color on load
@@ -138,6 +140,36 @@ function updateFieldBackgrounds() {
       input.classList.add("modified");
     }
   });
+}
+
+function clearCopyMessage() {
+  const copyMessage = document.getElementById("copyMessage");
+  if (copyMessage) {
+    copyMessage.textContent = "";
+  }
+}
+
+async function copyMetaTags() {
+  const metaTags = document.getElementById("metaTags");
+  const copyMessage = document.getElementById("copyMessage");
+
+  if (!metaTags || !copyMessage) {
+    return;
+  }
+
+  const metaTagText = metaTags.textContent.trim();
+
+  if (!metaTagText || metaTagText === "<!-- Your generated meta tags will appear here -->") {
+    copyMessage.textContent = "Generate your meta tags before copying them.";
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(metaTagText);
+    copyMessage.textContent = "Meta tags copied successfully.";
+  } catch (error) {
+    copyMessage.textContent = "Couldn't copy automatically. Please copy the meta tags manually.";
+  }
 }
 
 // Call the function on page load
@@ -150,4 +182,18 @@ window.onload = function () {
 
   updateFieldBackgrounds();
   updatePreviews(); // Initialize previews with placeholders
+  generateMetaTags();
+
+  const generateButton = document.getElementById("generateButton");
+  if (generateButton) {
+    generateButton.addEventListener("click", function () {
+      clearCopyMessage();
+      generateMetaTags();
+    });
+  }
+
+  const copyButton = document.getElementById("copyButton");
+  if (copyButton) {
+    copyButton.addEventListener("click", copyMetaTags);
+  }
 };

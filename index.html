@@ -5,99 +5,179 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meta Tag Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
-    <h1>Meta Tag Generator</h1>
-    <form id="metaForm">
-      <!-- SEO Meta Tags -->
-      <div class="form-row">
-        <label for="title">Title (SEO)</label>
-        <input type="text" id="title" placeholder="The Flour Pot - Freshly Baked Goodness">
-
-        <label for="description">Description (SEO)</label>
-        <input type="text" id="description"
-          placeholder="Discover our delicious range of artisan breads, pastries, and cakes. Baked fresh daily at The Flour Pot.">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Meta Tag Generator</p>
+        <h1>Write your page details once and instantly see how they appear in search and social shares.</h1>
+        <p class="hero-text">
+          Add your SEO and Open Graph details below. The live previews show what people may see on Google and when your
+          page is shared in apps like Slack, X, Facebook, or LinkedIn.
+        </p>
       </div>
-
-      <div class="form-row">
-        <label for="keywords">Keywords (SEO)</label>
-        <input type="text" id="keywords" placeholder="bakery, artisan bread, pastries, cakes, fresh bread">
-
-        <label for="favicon">Favicon (ICO File URL)</label>
-        <input type="text" id="favicon" placeholder="https://example.com/favicon.ico">
-      </div>
-
-      <!-- Open Graph Meta Tags -->
-      <div class="form-row">
-        <label for="ogTitle">OG Title</label>
-        <input type="text" id="ogTitle" placeholder="The Flour Pot - Freshly Baked Goodness">
-
-        <label for="ogDescription">OG Description</label>
-        <input type="text" id="ogDescription"
-          placeholder="Enjoy the finest artisan breads and pastries, freshly baked every day. Visit The Flour Pot!">
-
-        <label for="ogImage">OG Image URL</label>
-        <input type="text" id="ogImage" placeholder="https://example.com/bakery-og-image.jpg">
-      </div>
-
-      <div class="form-row">
-        <label for="ogUrl">OG URL</label>
-        <input type="text" id="ogUrl" placeholder="theflourpot.com">
-
-        <label for="ogType">OG Type</label>
-        <input type="text" id="ogType" placeholder="website">
-
-        <label for="ogSiteName">OG Site Name</label>
-        <input type="text" id="ogSiteName" placeholder="The Flour Pot">
-      </div>
-
-      <button type="button" onclick="generateMetaTags()">Generate</button>
-    </form>
-
-    <div class="preview-container">
-      <div class="preview">
-
-        <!-- Google Search Preview -->
-        <h2>GOOGLE PREVIEW</h2>
-        <div class="google-preview">
-          <div class="google-content">
-            <div class="google-favicon">
-              <div class="favicon-placeholder"></div>
-            </div>
-            <div class="google-info">
-              <p class="site-name">Example Site</p>
-              <p class="site-url">www.example.com</p>
-            </div>
+      <div class="hero-steps">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <div>
+            <h2>Fill in your page info</h2>
+            <p>Enter your title, description, image, URL, and site name.</p>
           </div>
-          <p class="google-title" id="googlePreviewTitle"></p>
-          <p class="google-description" id="googlePreviewDescription"></p>
         </div>
-
-        <!-- Social Media Preview -->
-        <h2>RICH LINK PREVIEW</h2>
-        <div class="social-media-preview">
-          <div class="social-content">
-            <div class="social-image">
-              <img id="socialPreviewImage" src="" alt="Preview Image">
-            </div>
-            <div class="social-info">
-              <p class="social-url" id="ogUrlPreview"></p>
-              <p class="social-title" id="socialPreviewTitle"></p>
-              <p class="social-description" id="socialPreviewDescription"></p>
-            </div>
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <div>
+            <h2>Review the previews</h2>
+            <p>Use the previews to check how your page may look before publishing.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <div>
+            <h2>Copy your meta tags</h2>
+            <p>Generate the tags, then copy them into the <code>&lt;head&gt;</code> of your site.</p>
           </div>
         </div>
       </div>
-    </div>
+    </header>
 
+    <main class="workspace">
+      <section class="panel panel-form">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Page Details</p>
+            <h2>Content you'll use to create your meta tags</h2>
+          </div>
+          <p class="section-copy">Use the placeholders as examples, or replace them with your own page details.</p>
+        </div>
 
-    <div class="metaTags">
-      <h2>Generated Meta Tags:</h2>
-      <pre id="metaTags"></pre>
-    </div>
+        <form id="metaForm">
+          <div class="form-grid">
+            <div class="form-card">
+              <h3>SEO Basics</h3>
+              <p class="card-copy">These tags help search engines understand your page and influence how it appears in results.</p>
+
+              <label for="title">Title</label>
+              <input type="text" id="title" placeholder="The Flour Pot - Freshly Baked Goodness">
+
+              <label for="description">Description</label>
+              <input type="text" id="description"
+                placeholder="Discover our delicious range of artisan breads, pastries, and cakes. Baked fresh daily at The Flour Pot.">
+
+              <label for="keywords">Keywords</label>
+              <input type="text" id="keywords" placeholder="bakery, artisan bread, pastries, cakes, fresh bread">
+
+              <label for="favicon">Favicon (ICO File URL)</label>
+              <input type="text" id="favicon" placeholder="https://example.com/favicon.ico">
+            </div>
+
+            <div class="form-card">
+              <h3>Social Sharing</h3>
+              <p class="card-copy">These Open Graph tags control how your page looks when people share your link.</p>
+
+              <label for="ogTitle">OG Title</label>
+              <input type="text" id="ogTitle" placeholder="The Flour Pot - Freshly Baked Goodness">
+
+              <label for="ogDescription">OG Description</label>
+              <input type="text" id="ogDescription"
+                placeholder="Enjoy the finest artisan breads and pastries, freshly baked every day. Visit The Flour Pot!">
+
+              <label for="ogImage">OG Image URL</label>
+              <input type="text" id="ogImage" placeholder="https://example.com/bakery-og-image.jpg">
+
+              <label for="ogUrl">OG URL</label>
+              <input type="text" id="ogUrl" placeholder="theflourpot.com">
+
+              <label for="ogType">OG Type</label>
+              <input type="text" id="ogType" placeholder="website">
+
+              <label for="ogSiteName">OG Site Name</label>
+              <input type="text" id="ogSiteName" placeholder="The Flour Pot">
+            </div>
+          </div>
+
+          <button type="button" id="generateButton">Generate Meta Tags</button>
+        </form>
+      </section>
+
+      <section class="panel panel-preview">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Live Preview</p>
+            <h2>Watch your page snippet update as you type</h2>
+          </div>
+          <p class="section-copy">The previews are examples, but they help you catch missing titles, weak descriptions, or the wrong image early.</p>
+        </div>
+
+        <div class="preview-container">
+          <div class="preview">
+            <div class="preview-card">
+              <div class="preview-header">
+                <p class="preview-kicker">Google-style result</p>
+                <h3>Search Preview</h3>
+              </div>
+              <div class="google-preview">
+                <div class="google-content">
+                  <div class="google-favicon">
+                    <div class="favicon-placeholder"></div>
+                  </div>
+                  <div class="google-info">
+                    <p class="site-name">Example Site</p>
+                    <p class="site-url">www.example.com</p>
+                  </div>
+                </div>
+                <p class="google-title" id="googlePreviewTitle"></p>
+                <p class="google-description" id="googlePreviewDescription"></p>
+              </div>
+            </div>
+
+            <div class="preview-card">
+              <div class="preview-header">
+                <p class="preview-kicker">Shared link card</p>
+                <h3>Rich Link Preview</h3>
+              </div>
+              <div class="social-media-preview">
+                <div class="social-content">
+                  <div class="social-image">
+                    <img id="socialPreviewImage" src="" alt="Preview Image">
+                  </div>
+                  <div class="social-info">
+                    <p class="social-url" id="ogUrlPreview"></p>
+                    <p class="social-title" id="socialPreviewTitle"></p>
+                    <p class="social-site-name" id="socialPreviewSiteName"></p>
+                    <p class="social-description" id="socialPreviewDescription"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel metaTags">
+        <div class="meta-header">
+          <div>
+            <p class="section-label">Output</p>
+            <h2>Generated Meta Tags</h2>
+            <p class="section-copy">Click generate to build the tags, then use the copy button to grab them all at once.</p>
+          </div>
+          <button type="button" id="copyButton" class="copy-button" aria-label="Copy generated meta tags" title="Copy generated meta tags">
+            <i class="bi bi-copy"></i>
+          </button>
+        </div>
+        <p id="copyMessage" class="copy-message" aria-live="polite"></p>
+        <pre id="metaTags"></pre>
+      </section>
+    </main>
   </div>
 
   <script src="scripts.js"></script>
